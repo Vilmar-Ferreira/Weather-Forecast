@@ -6,73 +6,88 @@
     android:background="@color/color_background"
     tools:context="com.example.weatherforecast.view.CityActivity">
 
-
-    <TextView
-        android:id="@+id/txtPreciptValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:text="@string/qual_localiza_o"
-        android:textColor="@color/white"
-        android:textSize="21sp" />
-
-    <TextView
-        android:id="@+id/txtState"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txtPreciptValue"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:text="@string/estado"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
-
-    <Spinner
-        android:id="@+id/spinnerState"
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txtState"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="5dp" />
+        android:layout_height="match_parent"
+        tools:context=".MapsActivity" />
 
-    <TextView
-        android:id="@+id/txtCity"
+
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/spinnerState"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="@string/cidade"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:layout_centerInParent="true"
+        android:background="@drawable/round_shape"
+        android:padding="10dp">
 
-    <Spinner
-        android:id="@+id/spinnerCity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txtCity"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="5dp" />
+        <TextView
+            android:id="@+id/txtPreciptValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="@string/qual_localiza_o"
+            android:textColor="@color/white"
+            android:textSize="21sp" />
+
+        <TextView
+            android:id="@+id/txtState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtPreciptValue"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:text="@string/estado"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <Spinner
+            android:id="@+id/spinnerState"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtState"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="5dp" />
+
+        <TextView
+            android:id="@+id/txtCity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/spinnerState"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/cidade"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <Spinner
+            android:id="@+id/spinnerCity"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtCity"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="5dp" />
 
 
-    <Button
-        android:id="@+id/btnShow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/spinnerCity"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/button_shape"
-        android:paddingStart="20dp"
-        android:paddingTop="5dp"
-        android:paddingEnd="20dp"
-        android:paddingBottom="5dp"
-        android:text="@string/ver_previs_o" />
-
+        <Button
+            android:id="@+id/btnShow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/spinnerCity"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/button_shape"
+            android:paddingStart="20dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="5dp"
+            android:text="@string/ver_previs_o" />
+    </RelativeLayout>
 
 </RelativeLayout>

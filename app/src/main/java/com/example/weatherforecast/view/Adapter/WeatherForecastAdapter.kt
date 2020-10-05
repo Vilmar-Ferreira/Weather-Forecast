@@ -1,4 +1,4 @@
-package com.example.weatherforecast.Adapter
+package com.example.weatherforecast.view.Adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.weatherforecast.Model.Data
@@ -16,7 +17,7 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-class WeatherForecastAdapter(var context: Context, var weatherList: List<Data>) : RecyclerView.Adapter<WeatherForecastAdapter.PostViewHolder>() {
+class WeatherForecastAdapter(var context: Context, var weatherList: List<Data>, val adapterOnClick: (Data) -> Unit) : RecyclerView.Adapter<WeatherForecastAdapter.PostViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.adapter_layout, parent, false)
@@ -46,6 +47,10 @@ class WeatherForecastAdapter(var context: Context, var weatherList: List<Data>) 
                 .centerCrop()
                 //.placeholder(R.drawable.loading_spinner)
                 .into(holder.img)
+
+        holder.cardView.setOnClickListener {
+            adapterOnClick(item)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -59,6 +64,7 @@ class WeatherForecastAdapter(var context: Context, var weatherList: List<Data>) 
         var txtMaxTempValue: TextView
         var txtMinTempValue: TextView
         var img: ImageView
+        var cardView: CardView
 
         init {
             txtPreciptVAlue = itemView.findViewById(R.id.txtPreciptValue)
@@ -66,6 +72,7 @@ class WeatherForecastAdapter(var context: Context, var weatherList: List<Data>) 
             txtDataValue = itemView.findViewById(R.id.txtDataValue)
             txtMinTempValue = itemView.findViewById(R.id.txtTempMinValue)
             txtMaxTempValue = itemView.findViewById(R.id.txtTempMaxValue)
+            cardView = itemView.findViewById(R.id.card_view)
         }
     }
 

@@ -32,12 +32,12 @@ class MainActivityPresenter(private val view: ViewCallback) {
     private fun fetchData(city: String?, state: String?) {
         val nfdNormalizedString = Normalizer.normalize(city, Normalizer.Form.NFD);
         val pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
-        val cityFormated =pattern.matcher(nfdNormalizedString).replaceAll("");
+        val cityFormated = pattern.matcher(nfdNormalizedString).replaceAll("");
         myAPI.getWeatherForecast(cityFormated, "BR", "pt", "f85c52ec15d64e79991e3b1ed648fbb1")
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.doOnError {
-                 compositeDisposable.clear()
+                    compositeDisposable.clear()
                     view.finishWithError()
                 }
                 ?.subscribe { data ->
@@ -53,6 +53,9 @@ class MainActivityPresenter(private val view: ViewCallback) {
 
     fun onStop() {
         compositeDisposable.clear()
+    }
+
+    fun onClickItem(it: Data) {
     }
 
     interface ViewCallback {

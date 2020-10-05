@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.weatherforecast.Adapter.WeatherForecastAdapter
 import com.example.weatherforecast.Model.Data
 import com.example.weatherforecast.R
 import com.example.weatherforecast.presenter.MainActivityPresenter
+import com.example.weatherforecast.view.Adapter.WeatherForecastAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MainActivityPresenter.ViewCallback {
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity(), MainActivityPresenter.ViewCallback {
     }
 
     override fun setupRecycler(list: List<Data>) {
-        val adapter = WeatherForecastAdapter(this, list)
+        val adapter = WeatherForecastAdapter(this, list) { presenter.onClickItem(it) }
         recyclerview.adapter = adapter
     }
 

@@ -8,11 +8,14 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import com.example.weatherforecast.R
 import com.example.weatherforecast.presenter.CityActivityPresenter
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
 import kotlinx.android.synthetic.main.activity_city.*
 import org.jetbrains.anko.startActivity
 
 
-class CityActivity : AppCompatActivity(), CityActivityPresenter.ViewCallback {
+class CityActivity : AppCompatActivity(), CityActivityPresenter.ViewCallback, OnMapReadyCallback {
     private val presenter: CityActivityPresenter by lazy { CityActivityPresenter(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,6 +23,11 @@ class CityActivity : AppCompatActivity(), CityActivityPresenter.ViewCallback {
         setContentView(R.layout.activity_city)
 
         presenter.onCreate()
+
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        val mapFragment = supportFragmentManager
+                .findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
 
         spinnerState.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(parentView: AdapterView<*>?, selectedItemView: View?, position: Int, id: Long) {
@@ -30,9 +38,22 @@ class CityActivity : AppCompatActivity(), CityActivityPresenter.ViewCallback {
             }
         }
 
+        spinnerCity.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(parentView: AdapterView<*>?, selectedItemView: View?, position: Int, id: Long) {
+                presenter.setSelectedCity(position)
+            }
+
+            override fun onNothingSelected(parentView: AdapterView<*>?) {
+            }
+        }
+
         btnShow.setOnClickListener {
             presenter.onClickShow()
         }
+    }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        presenter.onMapReady(googleMap)
     }
 
 

@@ -5,6 +5,9 @@ import com.example.weatherforecast.Model.States
 import com.example.weatherforecast.Model.StatesItem
 import com.example.weatherforecast.Retrofit.MyAPI
 import com.example.weatherforecast.Retrofit.RetrofitClient
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.LatLng
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -15,6 +18,7 @@ class CityActivityPresenter(private val view: ViewCallback) {
 
     lateinit var myAPI: MyAPI
     var compositeDisposable = CompositeDisposable()
+    private lateinit var mMap: GoogleMap
 
     var states: States? = null
     var cityList: City? = null
@@ -86,6 +90,19 @@ class CityActivityPresenter(private val view: ViewCallback) {
         val city = cityList?.get(view.getSelectedCity())?.nome
 
         view.showMainActivity(city, state)
+    }
+
+    fun onMapReady(googleMap: GoogleMap) {
+        mMap = googleMap
+
+        // Add a marker in Sydney and move the camera
+        val latLng = LatLng(-25.4277800, -49.2730600)
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(latLng.latitude, latLng.longitude), 9.0f))
+    }
+
+    fun setSelectedCity(position: Int) {
+        val city = this.cityList?.get(position)
+        city?.microrregiao
     }
 
     interface ViewCallback {

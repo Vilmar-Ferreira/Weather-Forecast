@@ -10,4 +10,5 @@
     <string name="minima">Minima</string>
     <string name="maxima">Máxima</string>
     <string name="cidade_nao_encontrada">\"Cidade não encontarda\"</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
