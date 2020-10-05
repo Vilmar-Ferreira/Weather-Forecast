@@ -7,6 +7,8 @@ import com.example.weatherforecast.Retrofit.RetrofitClient
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import java.util.*
+import kotlin.collections.ArrayList
 
 class CityActivityPresenter(private val view: ViewCallback) {
 
@@ -42,6 +44,12 @@ class CityActivityPresenter(private val view: ViewCallback) {
         if (states != null) states.forEach {
             statesStr.add(it.nome)
         }
+
+        Collections.sort(statesStr, object : Comparator<String?> {
+            override fun compare(p0: String?, p1: String?): Int {
+                return p0!!.compareTo(p1!!, ignoreCase = true)
+            }
+        })
 
         view.setSpinnerStates(statesStr)
     }
