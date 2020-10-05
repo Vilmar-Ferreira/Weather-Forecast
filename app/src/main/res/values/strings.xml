@@ -1,6 +1,13 @@
 <resources>
-    <string name="app_name">RetrofitRxJava</string>
-    <string name="title_activity_splash">FullscreenActivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="app_name">Weather Forecast</string>
+    <string name="qual_localiza_o">Qual localização?</string>
+    <string name="estado">Estado</string>
+    <string name="cidade">Cidade</string>
+    <string name="ver_previs_o">Ver Previsão</string>
+    <string name="previs_o_do_tempo">Previsão do Tempo</string>
+    <string name="possibilidade_de_chuva">Possibilidade de Chuva</string>
+    <string name="data">Data</string>
+    <string name="minima">Minima</string>
+    <string name="maxima">Máxima</string>
+    <string name="cidade_nao_encontrada">\"Cidade não encontarda\"</string>
 </resources>

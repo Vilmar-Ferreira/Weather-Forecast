@@ -8,6 +8,8 @@ import com.example.weatherforecast.Retrofit.RetrofitClient
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import java.text.Normalizer
+import java.util.regex.Pattern
 
 class MainActivityPresenter(private val view: ViewCallback) {
     lateinit var myAPI: MyAPI
@@ -28,12 +30,21 @@ class MainActivityPresenter(private val view: ViewCallback) {
     }
 
     private fun fetchData(city: String?, state: String?) {
-        myAPI.getWeatherForecast(city, "BR", "pt", "f85c52ec15d64e79991e3b1ed648fbb1")
+        val nfdNormalizedString = Normalizer.normalize(city, Normalizer.Form.NFD);
+        val pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        val cityFormated =pattern.matcher(nfdNormalizedString).replaceAll("");
+        myAPI.getWeatherForecast(cityFormated, "BR", "pt", "f85c52ec15d64e79991e3b1ed648fbb1")
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
+                ?.doOnError {
+                 compositeDisposable.clear()
+                    view.finishWithError()
+                }
                 ?.subscribe { data ->
                     data?.let { displayData(it) }
-                }?.let { compositeDisposable.add(it) }
+                }?.let {
+                    compositeDisposable.add(it)
+                }
     }
 
     private fun displayData(dataModel: DataModel) {
@@ -46,5 +57,6 @@ class MainActivityPresenter(private val view: ViewCallback) {
 
     interface ViewCallback {
         fun setupRecycler(list: List<Data>)
+        fun finishWithError()
     }
 }

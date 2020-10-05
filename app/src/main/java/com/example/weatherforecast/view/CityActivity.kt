@@ -55,7 +55,7 @@ class CityActivity : AppCompatActivity(), CityActivityPresenter.ViewCallback {
 
     override fun setSpinnerStates(states: MutableList<String>) {
         val dataAdapter = ArrayAdapter(this,
-                android.R.layout.simple_spinner_item, states)
+                R.layout.spinner_item, states)
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         spinnerState.setAdapter(dataAdapter)
@@ -63,9 +63,17 @@ class CityActivity : AppCompatActivity(), CityActivityPresenter.ViewCallback {
 
     override fun setSpinnerCities(cities: MutableList<String>) {
         val dataAdapter = ArrayAdapter(this,
-                android.R.layout.simple_spinner_item, cities)
+                R.layout.spinner_item, cities)
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         spinnerCity.setAdapter(dataAdapter)
+    }
+
+    override fun setSpinnerStatePosition(i: Int) {
+        spinnerState.setSelection(i)
+    }
+
+    override fun setSpinnerCityPosition(i: Int) {
+        spinnerCity.setSelection(i)
     }
 }

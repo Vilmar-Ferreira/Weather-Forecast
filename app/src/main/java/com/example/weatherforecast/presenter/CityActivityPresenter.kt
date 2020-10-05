@@ -2,6 +2,7 @@ package com.example.weatherforecast.presenter
 
 import com.example.weatherforecast.Model.City
 import com.example.weatherforecast.Model.States
+import com.example.weatherforecast.Model.StatesItem
 import com.example.weatherforecast.Retrofit.MyAPI
 import com.example.weatherforecast.Retrofit.RetrofitClient
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -41,26 +42,30 @@ class CityActivityPresenter(private val view: ViewCallback) {
         this.states = states
         val statesStr: MutableList<String> = ArrayList()
 
-        if (states != null) states.forEach {
-            statesStr.add(it.nome)
-        }
-
-        Collections.sort(statesStr, object : Comparator<String?> {
-            override fun compare(p0: String?, p1: String?): Int {
-                return p0!!.compareTo(p1!!, ignoreCase = true)
+        Collections.sort(this.states, object : Comparator<StatesItem?> {
+            override fun compare(p0: StatesItem?, p1: StatesItem?): Int {
+                return p0?.nome!!.compareTo(p1?.nome!!, ignoreCase = true)
             }
         })
 
+        if (this.states != null) this.states!!.forEach {
+            statesStr.add(it.nome)
+        }
+
         view.setSpinnerStates(statesStr)
+        view.setSpinnerStatePosition(13)
     }
 
     fun getCityes(position: Int) {
-        states?.let {
-            myAPI.getCityes(it.get(position).sigla)
+        states?.let { it ->
+            myAPI.getCityes(it[position].sigla)
                     ?.subscribeOn(Schedulers.io())
                     ?.observeOn(AndroidSchedulers.mainThread())
                     ?.subscribe { city ->
                         setCities(city)
+                        if (it[position].sigla == "PR") {
+                            view.setSpinnerCityPosition(93)
+                        }
                     }?.let { compositeDisposable.add(it) }
         }
     }
@@ -89,5 +94,7 @@ class CityActivityPresenter(private val view: ViewCallback) {
         fun showMainActivity(city: String?, state: String?)
         fun setSpinnerStates(states: MutableList<String>)
         fun setSpinnerCities(cities: MutableList<String>)
+        fun setSpinnerStatePosition(i: Int)
+        fun setSpinnerCityPosition(i: Int)
     }
 }

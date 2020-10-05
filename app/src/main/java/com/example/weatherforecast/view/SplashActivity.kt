@@ -19,5 +19,6 @@ class SplashActivity : AppCompatActivity(), SplashActivityPresenter.ViewCallback
 
     override fun showHomeActivity() {
         startActivity<CityActivity>()
+        finish()
     }
 }

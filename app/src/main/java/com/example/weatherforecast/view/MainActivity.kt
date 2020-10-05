@@ -1,6 +1,7 @@
 package com.example.weatherforecast.view
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weatherforecast.Adapter.WeatherForecastAdapter
@@ -32,5 +33,10 @@ class MainActivity : AppCompatActivity(), MainActivityPresenter.ViewCallback {
     override fun setupRecycler(list: List<Data>) {
         val adapter = WeatherForecastAdapter(this, list)
         recyclerview.adapter = adapter
+    }
+
+    override fun finishWithError() {
+        Toast.makeText(this, getString(R.string.cidade_nao_encontrada), Toast.LENGTH_SHORT).show()
+        finish()
     }
 }
